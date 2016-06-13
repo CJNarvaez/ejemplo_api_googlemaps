@@ -4,15 +4,14 @@ function initMap() {
     center: {lat: 22.770, lng: -102.546},
     zoom: 10
   });
-/*  map.set('styles', [
+  map.set('styles', [
     {
       featureType: 'road',
-      elementType: 'geometry',
+      elementType: 'labels',
       stylers: [
-        { color: '#000000' },
-        { weight: 1.6 }
+        { visibility: 'off' }
       ]
-    }, {
+    }/*, {
       featureType: 'road',
       elementType: 'labels',
       stylers: [
@@ -41,8 +40,8 @@ function initMap() {
         { lightness: -15 },
         { saturation: 99 }
       ]
-    }
-  ]);*/
+    }*/
+  ]);
   var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
   var marker = new google.maps.Marker({
     position: {lat: 22.770, lng: -102.546},
@@ -53,19 +52,19 @@ function initMap() {
   map.controls[google.maps.ControlPosition.RIGHT_TOP].push(document.getElementById('legend'));
   var legend = document.getElementById('legend');
   map.data.loadGeoJson('Zacatecas.json');
-  map.data.setStyle(function(feature) {
-    var color = 'green';
-    if(feature.getProperty('isColorful')){
-      color = 'red';
-    }
-    return ({
-      fillColor: color,
-      strokeWeight: 2
-    });
-  });
   map.data.addListener('click', function(event) {
-    //console.log(event.feature.H);
-    event.feature.setProperty('isColorful',true);
+    //console.log(event.feature);
+    map.data.setStyle({ fillColor: 'green' });
+    map.data.revertStyles;
+    map.data.overrideStyle(event.feature, { fillColor: 'red' });
+    /*
+    if(event.feature.getProperty('isColorful'))
+    {
+      event.feature.setProperty('isColorful',false);
+    }
+    else {
+        event.feature.setProperty('isColorful',true);
+    }*/
     document.getElementById('legend').innerHTML = "<strong><h1>" + event.feature.H.NOM_MUN + "</h1><strong>";
   });
 }
