@@ -11,7 +11,8 @@ function initMap() {
       stylers: [
         { visibility: 'off' }
       ]
-    }/*, {
+    }
+    /*, {
       featureType: 'road',
       elementType: 'labels',
       stylers: [
@@ -52,6 +53,7 @@ function initMap() {
   map.controls[google.maps.ControlPosition.RIGHT_TOP].push(document.getElementById('legend'));
   var legend = document.getElementById('legend');
   map.data.loadGeoJson('Zacatecas.json');
+  map.data.setStyle({ fillColor: 'green' });
   map.data.addListener('click', function(event) {
     //console.log(event.feature);
     map.data.setStyle({ fillColor: 'green' });
